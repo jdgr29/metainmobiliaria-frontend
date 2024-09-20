@@ -102,7 +102,9 @@ export default function ResponsiveLandingPage() {
     }
 
     filtered = filtered.filter(
-      (prop) => prop.price >= priceRange[0] && prop.price <= priceRange[1]
+      (prop) =>
+        Number(prop.price) >= priceRange[0] &&
+        Number(prop.price) <= priceRange[1]
     );
 
     if (hasPool) filtered = filtered.filter((prop) => prop.hasPool);
