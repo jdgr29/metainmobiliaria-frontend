@@ -11,7 +11,7 @@ enum PropetyType {
 export type Property = {
   title: string;
   promotionalText: string;
-  propertyType: PropetyType;
+  propertyType: string;
   isFeatured: boolean;
   rooms: number;
   price: number | string;
