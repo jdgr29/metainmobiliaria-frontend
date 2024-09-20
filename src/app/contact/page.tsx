@@ -92,7 +92,7 @@ const Contact = () => {
             />
             <ContactItem
               icon={<FaEnvelope className="text-blue-500" />}
-              text="info@metainmobiliaria.com"
+              text="meta.inmobiliaria.do@gmail.com"
             />
             <ContactItem
               icon={<FaWhatsapp className="text-green-500" />}
