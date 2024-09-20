@@ -8,7 +8,6 @@ import {
   FaWhatsapp,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import { IconType } from "react-icons/lib";
 
 const center = {
   lat: 18.474470472142592,
