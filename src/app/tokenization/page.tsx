@@ -133,7 +133,7 @@ export default function TokenizacionInmobiliaria() {
             eficiente.
           </motion.p>
 
-          {sections.map((section, index) => (
+          {sections.map((section) => (
             <motion.div
               key={section.title}
               initial={false}
