@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -156,18 +157,18 @@ export default function ResponsiveLandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <main className="flex-1 ">
+      <main className="flex-1">
         <motion.section
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
           className="w-full py-4 md:py-16 lg:py-2 xl:py-2 bg-cover bg-center"
         >
-          <div className="container  mx-auto px-4 md:px-6">
+          <div className="container mx-auto px-4 md:px-6">
             <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }}
               className="flex items-center justify-center"
             >
               <img
@@ -184,7 +185,7 @@ export default function ResponsiveLandingPage() {
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              transition={{ delay: 0.1, duration: 0.3 }}
               className="flex relative top-1 z-10 flex-col items-center space-y-2 text-center"
             >
               <div className="space-y-2">
@@ -207,7 +208,7 @@ export default function ResponsiveLandingPage() {
                         className="space-y-2"
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.2, duration: 0.2 }}
+                        transition={{ delay: 0.1, duration: 0.2 }}
                       >
                         <h1>Ubicación</h1>
                         <Input
@@ -222,7 +223,7 @@ export default function ResponsiveLandingPage() {
                         className="space-y-2"
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.3, duration: 0.3 }}
+                        transition={{ delay: 0.15, duration: 0.2 }}
                       >
                         <label
                           htmlFor="property-type"
@@ -246,7 +247,7 @@ export default function ResponsiveLandingPage() {
                         className="space-y-2"
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.3, duration: 0.3 }}
+                        transition={{ delay: 0.2, duration: 0.2 }}
                       >
                         <label
                           htmlFor="bedrooms"
@@ -271,7 +272,7 @@ export default function ResponsiveLandingPage() {
                         className="space-y-2"
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.4, duration: 0.4 }}
+                        transition={{ delay: 0.25, duration: 0.2 }}
                       >
                         <label
                           htmlFor="bathrooms"
@@ -298,7 +299,7 @@ export default function ResponsiveLandingPage() {
                       className="space-y-4"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.7, duration: 0.3 }}
+                      transition={{ delay: 0.3, duration: 0.2 }}
                     >
                       <div className="flex justify-between">
                         <label htmlFor="price" className="text-sm font-medium">
@@ -322,7 +323,7 @@ export default function ResponsiveLandingPage() {
                       className="space-y-4"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.8, duration: 0.3 }}
+                      transition={{ delay: 0.35, duration: 0.2 }}
                     >
                       <label htmlFor="features" className="text-sm font-medium">
                         Características
@@ -366,8 +367,8 @@ export default function ResponsiveLandingPage() {
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{
-                              delay: 0.9 + index * 0.1,
-                              duration: 0.3,
+                              delay: 0.4 + index * 0.05,
+                              duration: 0.2,
                             }}
                           >
                             <input
@@ -385,7 +386,7 @@ export default function ResponsiveLandingPage() {
                       className="flex justify-between mt-4"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 1.5, duration: 0.3 }}
+                      transition={{ delay: 0.7, duration: 0.2 }}
                     >
                       <Button
                         variant="outline"
@@ -405,7 +406,7 @@ export default function ResponsiveLandingPage() {
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.7, duration: 0.5 }}
+              transition={{ delay: 0.8, duration: 0.3 }}
             >
               <PropertyMapComponent properties={filteredProperties} />
             </motion.div>
@@ -414,7 +415,7 @@ export default function ResponsiveLandingPage() {
         <motion.section
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 0.5 }}
+          transition={{ delay: 0.9, duration: 0.3 }}
           className="w-full py-8 md:py-16 lg:py-24 bg-gray-100"
         >
           <div className="container mx-auto px-4 md:px-6">
@@ -427,7 +428,7 @@ export default function ResponsiveLandingPage() {
         <motion.section
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.2, duration: 0.5 }}
+          transition={{ delay: 1, duration: 0.3 }}
           className="w-full py-8 md:py-16 lg:py-24"
         >
           <div className="container mx-auto px-4 md:px-6">
