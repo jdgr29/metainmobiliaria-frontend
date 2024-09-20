@@ -409,7 +409,7 @@ export default function Component() {
                     }
                     fileName="amortizacion.pdf"
                   >
-                    {({ blob, url, loading, error }) =>
+                    {({ loading }: { loading: boolean }) =>
                       loading ? (
                         "Cargando documento..."
                       ) : (
