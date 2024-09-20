@@ -1,13 +1,5 @@
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-enum PropetyType {
-  HOUSE = "Casa",
-  APARTMENT = "Apartamento",
-  CONDO = "Condominio",
-  LAND = "Terreno",
-  COMMERCIAL = "Plaza Comercial",
-}
-
 export type Property = {
   title: string;
   promotionalText: string;
