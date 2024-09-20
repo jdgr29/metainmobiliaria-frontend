@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
 import {
   FaPhoneAlt,
   FaEnvelope,
   FaWhatsapp,
   FaMapMarkerAlt,
 } from "react-icons/fa";
+import { IconType } from "react-icons/lib";
 
 const center = {
   lat: 18.474470472142592,
@@ -33,7 +35,15 @@ const itemVariants = {
   },
 };
 
-const ContactItem = ({ icon, text, link }) => (
+const ContactItem = ({
+  icon,
+  text,
+  link,
+}: {
+  icon: ReactNode;
+  text: string;
+  link?: string;
+}) => (
   <motion.div variants={itemVariants} className="flex items-center space-x-3">
     {icon}
     {link ? (
