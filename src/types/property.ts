@@ -14,7 +14,7 @@ export type Property = {
   propertyType: PropetyType;
   isFeatured: boolean;
   rooms: number;
-  price: number;
+  price: number | string;
   bathrooms: number;
   restrooms: number;
   squareMeters: number;

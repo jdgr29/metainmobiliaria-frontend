@@ -68,12 +68,15 @@ export default function ResponsiveLandingPage() {
 
   const propertyFetcher = async () => {
     const prop = await sanityClient.fetch(PROPERTY_QUERY, {}, options);
+    console.log("props", prop);
 
     if (prop) {
       setProperties(prop);
       filterProperties(prop);
     }
   };
+
+  console.log("props ->", properties);
 
   const filterProperties = (propertiesToFilter: Property[]) => {
     let filtered = propertiesToFilter;
@@ -124,8 +127,10 @@ export default function ResponsiveLandingPage() {
   }, []);
 
   useEffect(() => {
+    console.log("properties", properties);
     if (properties) {
       filterProperties(properties);
+      console.log("filtered properties", properties);
     }
   }, [
     priceRange,
@@ -408,7 +413,13 @@ export default function ResponsiveLandingPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.3 }}
             >
-              <PropertyMapComponent properties={filteredProperties} />
+              <PropertyMapComponent
+                properties={
+                  filteredProperties?.length === 0
+                    ? properties
+                    : filteredProperties
+                }
+              />
             </motion.div>
           </div>
         </motion.section>
@@ -420,7 +431,11 @@ export default function ResponsiveLandingPage() {
         >
           <div className="container mx-auto px-4 md:px-6">
             <FeaturePosts
-              properties={filteredProperties}
+              properties={
+                filteredProperties?.length === 0
+                  ? properties
+                  : filteredProperties
+              }
               urlTransformer={urlTransformer}
             />
           </div>
@@ -434,7 +449,11 @@ export default function ResponsiveLandingPage() {
           <div className="container mx-auto px-4 md:px-6">
             <RecentPosts
               urlTransformer={urlTransformer}
-              properties={filteredProperties}
+              properties={
+                filteredProperties?.length === 0
+                  ? properties
+                  : filteredProperties
+              }
             />
           </div>
         </motion.section>

@@ -33,6 +33,7 @@ export default function RecentPosts({
     align: "start",
     loop: true,
   });
+  console.log("properties recemt", properties);
 
   const recentProperties = properties?.slice(0, 10) || [];
 

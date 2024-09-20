@@ -152,22 +152,30 @@ export default function PropertyDetailView() {
     setIsImageExpanded(true);
   };
 
+  const isNotLand = property.propertyType !== "land";
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="relative h-screen md:h-[80vh] overflow-hidden">
         <AnimatePresence initial={false}>
-          <motion.img
-            key={currentImageIndex}
-            src={urlTransformer(
-              property.propertyImages[currentImageIndex]
-            ).url()}
-            alt={`Property image ${currentImageIndex + 1}`}
-            className="w-full h-full object-cover"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          />
+          {
+            <motion.img
+              key={currentImageIndex}
+              src={
+                property?.propertyImages
+                  ? urlTransformer(
+                      property?.propertyImages[currentImageIndex]
+                    ).url()
+                  : urlTransformer(property?.mainImage).url()
+              }
+              alt={`Property image ${currentImageIndex + 1}`}
+              className="w-full h-full object-cover"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            />
+          }
         </AnimatePresence>
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-between">
           <button
@@ -205,126 +213,134 @@ export default function PropertyDetailView() {
               <p className="text-gray-600 mb-6 text-lg">
                 {property.promotionalText}
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-8">
-                <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
-                  <Bed size={32} className="text-indigo-500 mr-4" />
-                  <div>
-                    <span className="block text-2xl font-bold">
-                      {property.rooms}
-                    </span>
-                    <span className="text-gray-500">
-                      Número de habitaciones
-                    </span>
+              {isNotLand && (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-8">
+                  <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
+                    <Bed size={32} className="text-indigo-500 mr-4" />
+                    <div>
+                      <span className="block text-2xl font-bold">
+                        {property.rooms}
+                      </span>
+                      <span className="text-gray-500">
+                        Número de habitaciones
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
+                    <Bath size={32} className="text-indigo-500 mr-4" />
+                    <div>
+                      <span className="block text-2xl font-bold">
+                        {property.bathrooms}
+                      </span>
+                      <span className="text-gray-500">Baños</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
+                    <Square size={32} className="text-indigo-500 mr-4" />
+                    <div>
+                      <span className="block text-2xl font-bold">
+                        {Number(property.squareMeters).toLocaleString()}
+                      </span>
+                      <span className="text-gray-500">
+                        m² (metros cuadrados)
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
+                    <MapPin size={32} className="text-indigo-500 mr-4" />
+                    <div>
+                      <span className="block text-2xl font-bold">
+                        {property.floor}
+                      </span>
+                      <span className="text-gray-500">Piso</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
+                    <Car size={32} className="text-indigo-500 mr-4" />
+                    <div>
+                      <span className="block text-2xl font-bold">
+                        {property.parkingSpots}
+                      </span>
+                      <span className="text-gray-500">Número de parqueos</span>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
-                  <Bath size={32} className="text-indigo-500 mr-4" />
-                  <div>
-                    <span className="block text-2xl font-bold">
-                      {property.bathrooms}
-                    </span>
-                    <span className="text-gray-500">Baños</span>
-                  </div>
-                </div>
-                <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
-                  <Square size={32} className="text-indigo-500 mr-4" />
-                  <div>
-                    <span className="block text-2xl font-bold">
-                      {property.squareMeters}
-                    </span>
-                    <span className="text-gray-500">m² (metros cuadrados)</span>
-                  </div>
-                </div>
-                <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
-                  <MapPin size={32} className="text-indigo-500 mr-4" />
-                  <div>
-                    <span className="block text-2xl font-bold">
-                      {property.floor}
-                    </span>
-                    <span className="text-gray-500">Piso</span>
-                  </div>
-                </div>
-                <div className="flex items-center bg-white p-4 rounded-lg shadow-md">
-                  <Car size={32} className="text-indigo-500 mr-4" />
-                  <div>
-                    <span className="block text-2xl font-bold">
-                      {property.parkingSpots}
-                    </span>
-                    <span className="text-gray-500">Número de parqueos</span>
-                  </div>
-                </div>
-              </div>
+              )}
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <h3 className="text-2xl font-semibold mb-4">Características</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
-                <FeatureIcon
-                  feature="balcony"
-                  title="Balcón"
-                  isPresent={property.hasBalcony}
-                />
-                <FeatureIcon
-                  title="Jardín"
-                  feature="garden"
-                  isPresent={property.hasGarden}
-                />
-                <FeatureIcon
-                  title="Cuarto de lavado"
-                  feature="laundry"
-                  isPresent={property.hasLaundryroom}
-                />
-                <FeatureIcon
-                  title="Parqueo"
-                  feature="parking"
-                  isPresent={property.hasParking}
-                />
-                <FeatureIcon
-                  title="Piscina"
-                  feature="pool"
-                  isPresent={property.hasPool}
-                />
-                <FeatureIcon
-                  title="Cuarto de servicio"
-                  feature="serviceRoom"
-                  isPresent={property.hasServiceRoom}
-                />
-              </div>
-            </motion.div>
+            {isNotLand && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <h3 className="text-2xl font-semibold mb-4">Características</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+                  <FeatureIcon
+                    feature="balcony"
+                    title="Balcón"
+                    isPresent={property.hasBalcony}
+                  />
+                  <FeatureIcon
+                    title="Jardín"
+                    feature="garden"
+                    isPresent={property.hasGarden}
+                  />
+                  <FeatureIcon
+                    title="Cuarto de lavado"
+                    feature="laundry"
+                    isPresent={property.hasLaundryroom}
+                  />
+                  <FeatureIcon
+                    title="Parqueo"
+                    feature="parking"
+                    isPresent={property.hasParking}
+                  />
+                  <FeatureIcon
+                    title="Piscina"
+                    feature="pool"
+                    isPresent={property.hasPool}
+                  />
+                  <FeatureIcon
+                    title="Cuarto de servicio"
+                    feature="serviceRoom"
+                    isPresent={property.hasServiceRoom}
+                  />
+                </div>
+              </motion.div>
+            )}
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <h3 className="text-2xl font-semibold mb-4">
-                Servicios Incluidos
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
-                <div
-                  className={`flex items-center ${property.isElectricityIncluded ? "text-green-500" : "text-gray-400"}`}
-                >
-                  <Zap size={24} className="mr-2" />
-                  <span>Electricidad</span>
+            {isNotLand && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <h3 className="text-2xl font-semibold mb-4">
+                  Servicios Incluidos
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+                  <div
+                    className={`flex items-center ${property.isElectricityIncluded ? "text-green-500" : "text-gray-400"}`}
+                  >
+                    <Zap size={24} className="mr-2" />
+                    <span>Electricidad</span>
+                  </div>
+                  <div
+                    className={`flex items-center ${property.isWaterIncluded ? "text-green-500" : "text-gray-400"}`}
+                  >
+                    <Droplet size={24} className="mr-2" />
+                    <span>Agua</span>
+                  </div>
+                  <div
+                    className={`flex items-center ${property.isGasIncluded ? "text-green-500" : "text-gray-400"}`}
+                  >
+                    <Flame size={24} className="mr-2" />
+                    <span>Gas</span>
+                  </div>
                 </div>
-                <div
-                  className={`flex items-center ${property.isWaterIncluded ? "text-green-500" : "text-gray-400"}`}
-                >
-                  <Droplet size={24} className="mr-2" />
-                  <span>Agua</span>
-                </div>
-                <div
-                  className={`flex items-center ${property.isGasIncluded ? "text-green-500" : "text-gray-400"}`}
-                >
-                  <Flame size={24} className="mr-2" />
-                  <span>Gas</span>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            )}
           </div>
           <div>
             <motion.div
@@ -386,7 +402,7 @@ export default function PropertyDetailView() {
         >
           <h3 className="text-2xl font-semibold mb-4">Property Images</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {property.propertyImages.map((image, index) => (
+            {property.propertyImages?.map((image, index) => (
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.05 }}
