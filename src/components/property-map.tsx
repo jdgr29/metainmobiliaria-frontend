@@ -122,7 +122,9 @@ export function PropertyMapComponent({
           </CardContent>
           <CardFooter>
             <Link href={`/property/${selectedProperty._id}`} passHref>
-              <Button className="w-full">View Details</Button>
+              <Button className="w-full bg-[#121212] text-white">
+                View Details
+              </Button>
             </Link>
           </CardFooter>
         </Card>

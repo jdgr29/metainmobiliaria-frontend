@@ -103,7 +103,9 @@ export default function Component({
                   </CardContent>
                   <CardFooter className="p-4">
                     <Link href={`/property/${property._id}`} className="w-full">
-                      <Button className="w-full">View Details</Button>
+                      <Button className="w-full bg-[#121212] text-white">
+                        View Details
+                      </Button>
                     </Link>
                   </CardFooter>
                 </Card>
