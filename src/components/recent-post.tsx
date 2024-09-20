@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { Property } from "@/types";
 import {
@@ -22,7 +23,7 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 import Link from "next/link";
 
-export default function RecentPosts({
+export default function Component({
   properties,
   urlTransformer,
 }: {
@@ -33,7 +34,6 @@ export default function RecentPosts({
     align: "start",
     loop: true,
   });
-  console.log("properties recemt", properties);
 
   const recentProperties = properties?.slice(0, 10) || [];
 
@@ -54,48 +54,58 @@ export default function RecentPosts({
                 key={index}
                 className="pl-4 md:basis-1/2 lg:basis-1/4"
               >
-                <Card className={`flex flex-col h-[25em] ${"bg-[#f5f5f5]"}`}>
-                  <CardHeader className="p-0 h-48">
-                    <img
-                      alt="Property Image"
-                      className="w-full h-full object-cover"
-                      src={urlTransformer(property.mainImage).url()}
-                    />
+                <Card className="flex flex-col h-[25em] bg-[#f5f5f5]">
+                  <CardHeader className="p-0 relative">
+                    <div className="relative w-full h-0 pb-[56.25%]">
+                      <img
+                        alt={property.title}
+                        className="absolute top-0 left-0 w-full h-full object-cover"
+                        src={urlTransformer(property.mainImage).url()}
+                      />
+                    </div>
                   </CardHeader>
                   <CardContent className="flex-grow p-4 overflow-hidden">
                     <CardTitle className="text-lg font-semibold mb-2 line-clamp-2">
                       {property.title}
                     </CardTitle>
                     <div className="grid grid-cols-2 gap-2 text-sm mb-4">
-                      <div className="flex items-center">
-                        <MapPin className="mr-1 h-4 w-4 flex-shrink-0" />
-                        <span className="truncate">{property.address}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <DollarSign className="mr-1 h-4 w-4 flex-shrink-0" />
-                        <span className="truncate">
-                          {property.price.toLocaleString()}
-                        </span>
-                      </div>
-                      <div className="flex items-center">
-                        <BedDouble className="mr-1 h-4 w-4 flex-shrink-0" />
-                        <span className="truncate">
-                          {property.rooms} Bedrooms
-                        </span>
-                      </div>
-                      <div className="flex items-center">
-                        <Bath className="mr-1 h-4 w-4 flex-shrink-0" />
-                        <span className="truncate">
-                          {property.bathrooms} Bathrooms
-                        </span>
-                      </div>
+                      {property.address && (
+                        <div className="flex items-center">
+                          <MapPin className="mr-1 h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">{property.address}</span>
+                        </div>
+                      )}
+                      {property.price && (
+                        <div className="flex items-center">
+                          <DollarSign className="mr-1 h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">
+                            {property.price.toLocaleString()}
+                          </span>
+                        </div>
+                      )}
+                      {property.rooms && (
+                        <div className="flex items-center">
+                          <BedDouble className="mr-1 h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">
+                            {property.rooms} Bedrooms
+                          </span>
+                        </div>
+                      )}
+                      {property.bathrooms && (
+                        <div className="flex items-center">
+                          <Bath className="mr-1 h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">
+                            {property.bathrooms} Bathrooms
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
-                  <Link href={`/property/${property._id}`} className="w-full">
-                    <CardFooter className="p-4">
+                  <CardFooter className="p-4">
+                    <Link href={`/property/${property._id}`} className="w-full">
                       <Button className="w-full">View Details</Button>
-                    </CardFooter>
-                  </Link>
+                    </Link>
+                  </CardFooter>
                 </Card>
               </CarouselItem>
             ))}

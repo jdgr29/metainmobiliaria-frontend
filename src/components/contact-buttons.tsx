@@ -10,7 +10,7 @@ export default function ContactButtons() {
   );
 
   return (
-    <div className="fixed z-50 left-4 bottom-4 flex flex-col space-y-2">
+    <div className="fixed z-50 right-4 bottom-4 flex flex-col space-y-2">
       <a
         href={`https://wa.me/${phoneNumber}?text=${whatsappMessage}`}
         target="_blank"

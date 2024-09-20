@@ -23,7 +23,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-export default function FeaturePosts({
+
+export default function Component({
   properties,
   urlTransformer,
 }: {
@@ -37,8 +38,6 @@ export default function FeaturePosts({
 
   const featureProperties =
     properties?.filter((property: Property) => property.isFeatured) || [];
-
-  // const { theme } = useTheme();
 
   if (featureProperties.length === 0) {
     return <div>No featured properties available.</div>;
@@ -57,13 +56,15 @@ export default function FeaturePosts({
                 key={index}
                 className="pl-4 md:basis-1/2 lg:basis-1/3"
               >
-                <Card className={`flex flex-col h-[30em] ${"bg-[#f5f5f5]"}`}>
-                  <CardHeader className="p-0 h-64 relative">
-                    <img
-                      alt={property.title}
-                      className="w-full h-full object-cover"
-                      src={urlTransformer(property.mainImage).url()}
-                    />
+                <Card className="flex flex-col h-[30em] bg-[#f5f5f5]">
+                  <CardHeader className="p-0 relative">
+                    <div className="relative w-full h-0 pb-[56.25%]">
+                      <img
+                        alt={property.title}
+                        className="absolute top-0 left-0 w-full h-full object-cover"
+                        src={urlTransformer(property.mainImage).url()}
+                      />
+                    </div>
                     {property.isFeatured && (
                       <div className="absolute top-4 right-4 bg-yellow-400 text-black font-semibold py-1 px-3 rounded-full flex items-center">
                         <Star className="w-4 h-4 mr-1" />
@@ -76,28 +77,36 @@ export default function FeaturePosts({
                       {property.title}
                     </CardTitle>
                     <div className="grid grid-cols-2 gap-2 text-sm mb-4">
-                      <div className="flex items-center">
-                        <MapPin className="mr-1 h-4 w-4 flex-shrink-0" />
-                        <span className="truncate">{property.address}</span>
-                      </div>
-                      <div className="flex items-center text-green-600 dark:text-green-400 font-semibold">
-                        <DollarSign className="mr-1 h-4 w-4 flex-shrink-0" />
-                        <span className="truncate">
-                          {property.price.toLocaleString()}
-                        </span>
-                      </div>
-                      <div className="flex items-center">
-                        <BedDouble className="mr-1 h-4 w-4 flex-shrink-0" />
-                        <span className="truncate">
-                          {property.rooms} Bedrooms
-                        </span>
-                      </div>
-                      <div className="flex items-center">
-                        <Bath className="mr-1 h-4 w-4 flex-shrink-0" />
-                        <span className="truncate">
-                          {property.bathrooms} Bathrooms
-                        </span>
-                      </div>
+                      {property.address && (
+                        <div className="flex items-center">
+                          <MapPin className="mr-1 h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">{property.address}</span>
+                        </div>
+                      )}
+                      {property.price && (
+                        <div className="flex items-center text-green-600 dark:text-green-400 font-semibold">
+                          <DollarSign className="mr-1 h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">
+                            {property.price.toLocaleString()}
+                          </span>
+                        </div>
+                      )}
+                      {property.rooms && (
+                        <div className="flex items-center">
+                          <BedDouble className="mr-1 h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">
+                            {property.rooms} Bedrooms
+                          </span>
+                        </div>
+                      )}
+                      {property.bathrooms && (
+                        <div className="flex items-center">
+                          <Bath className="mr-1 h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">
+                            {property.bathrooms} Bathrooms
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                   <CardFooter className="p-4">

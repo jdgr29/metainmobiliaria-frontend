@@ -1,11 +1,11 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Head from "next/head";
 import ContactButtons from "@/components/contact-buttons";
 
-const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Meta Inmobiliaria",
@@ -50,7 +50,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-icon.png" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
-      <body className={inter.className}>
+      <body className={montserrat.className}>
         <Navbar />
         {children}
         <ContactButtons />

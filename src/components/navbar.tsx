@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Sheet, SheetTrigger, SheetContent } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
-
 import useSWR from "swr";
 import { Skeleton } from "./ui-skeleton";
 import {
@@ -58,6 +57,7 @@ function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex h-20 items-center justify-between">
+          {/* Logo Section */}
           <Link className="flex items-center space-x-2" href="/">
             <Image
               src={"/assets/meta-logo-dark.png"}
@@ -65,9 +65,20 @@ function Navbar() {
               height={64}
               alt="Meta Inmobiliaria Logo"
             />
-            <span className="font-bold text-foreground">Meta Inmobiliaria</span>
+            <div>
+              <span className="font-bold text-foreground">
+                Meta Inmobiliaria
+              </span>
+              <br />
+              <span className="text-slate-500 font-medium text-md">
+                La energía para lograrlo
+              </span>
+            </div>
           </Link>
+
+          {/* Links and Currency Display */}
           <div className="flex items-center space-x-4">
+            {/* Desktop Navigation Links */}
             <nav className="hidden md:flex items-center space-x-6">
               <Link
                 className="text-sm font-medium text-foreground hover:text-primary-foreground transition-colors"
@@ -93,7 +104,15 @@ function Navbar() {
               >
                 ¿Tokenización?
               </Link>
+              <Link
+                className="text-sm font-medium text-foreground hover:text-primary-foreground transition-colors"
+                href="/loan"
+              >
+                Calculadora de préstamos
+              </Link>
             </nav>
+
+            {/* Currency Display */}
             <div className="hidden md:flex items-center space-x-2 text-sm">
               {error ? (
                 <span className="text-red-500">Error loading rates</span>
@@ -118,6 +137,7 @@ function Navbar() {
               )}
             </div>
 
+            {/* Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="md:hidden">
@@ -151,7 +171,15 @@ function Navbar() {
                   >
                     ¿Tokenización?
                   </Link>
+                  <Link
+                    className="text-sm font-medium text-foreground hover:text-primary-foreground transition-colors"
+                    href="/loan"
+                  >
+                    Calculadora de préstamos
+                  </Link>
                 </nav>
+
+                {/* Mobile Currency Display */}
                 <div className="mt-8 flex flex-col items-center space-y-4">
                   <Image
                     src={"/assets/meta-big-logo-dark.png"}

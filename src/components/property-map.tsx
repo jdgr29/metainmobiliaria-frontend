@@ -18,7 +18,6 @@ import { Property } from "@/types";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 
-// Replace with your actual Mapbox access token
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
 
 export function PropertyMapComponent({
@@ -35,8 +34,6 @@ export function PropertyMapComponent({
   const builder = imageUrlBuilder(sanityClient);
 
   function urlTransformer(source: SanityImageSource): ImageUrlBuilder {
-    const wtf = builder.image(source);
-    console.log("wtf", wtf);
     return builder.image(source);
   }
 
@@ -81,6 +78,8 @@ export function PropertyMapComponent({
       });
     }
   }, [properties]);
+
+  console.log("uh?", properties);
 
   return (
     <div className="rounded-xl h-[600px] w-full relative">
