@@ -21,13 +21,14 @@ import {
 } from "@/components/ui/carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-
+import { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 export default function FeaturePosts({
   properties,
   urlTransformer,
 }: {
   properties: Property[] | null;
-  urlTransformer: Function;
+  urlTransformer: (source: SanityImageSource) => ImageUrlBuilder;
 }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start" },
@@ -61,7 +62,7 @@ export default function FeaturePosts({
                     <img
                       alt={property.title}
                       className="w-full h-full object-cover"
-                      src={urlTransformer(property.mainImage)}
+                      src={urlTransformer(property.mainImage).url()}
                     />
                     {property.isFeatured && (
                       <div className="absolute top-4 right-4 bg-yellow-400 text-black font-semibold py-1 px-3 rounded-full flex items-center">

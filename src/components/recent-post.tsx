@@ -18,7 +18,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import useEmblaCarousel from "embla-carousel-react";
-
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 import Link from "next/link";
 
 export default function RecentPosts({
@@ -26,7 +27,7 @@ export default function RecentPosts({
   urlTransformer,
 }: {
   properties: Property[] | null;
-  urlTransformer: Function;
+  urlTransformer: (source: SanityImageSource) => ImageUrlBuilder;
 }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -57,7 +58,7 @@ export default function RecentPosts({
                     <img
                       alt="Property Image"
                       className="w-full h-full object-cover"
-                      src={urlTransformer(property.mainImage)}
+                      src={urlTransformer(property.mainImage).url()}
                     />
                   </CardHeader>
                   <CardContent className="flex-grow p-4 overflow-hidden">

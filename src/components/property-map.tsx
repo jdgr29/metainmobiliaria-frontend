@@ -15,10 +15,8 @@ import Link from "next/link";
 import { sanityClient } from "@/lib/sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import { Property } from "@/types";
-import {
-  SanityImageObject,
-  SanityImageSource,
-} from "@sanity/image-url/lib/types/types";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 
 // Replace with your actual Mapbox access token
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
@@ -35,12 +33,10 @@ export function PropertyMapComponent({
   );
 
   const builder = imageUrlBuilder(sanityClient);
-  type User = {
-    name: string;
-    age: number;
-  };
 
-  function urlTransformer(source: SanityImageSource): any {
+  function urlTransformer(source: SanityImageSource): ImageUrlBuilder {
+    const wtf = builder.image(source);
+    console.log("wtf", wtf);
     return builder.image(source);
   }
 
@@ -105,7 +101,7 @@ export function PropertyMapComponent({
           </CardHeader>
           <CardContent>
             <img
-              src={urlTransformer(selectedProperty.mainImage)}
+              src={urlTransformer(selectedProperty.mainImage).url()}
               alt={selectedProperty.title}
               className="w-full h-24 object-cover mb-2 rounded"
             />

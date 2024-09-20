@@ -34,7 +34,10 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/bn.js": "^5.1.6",
+    "@types/cacheable-request": "^8.3.2",
+    "@types/connect": "^3.4.38",
+    "@types/node": "^20.16.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

@@ -57,7 +57,6 @@ export default function ResponsiveLandingPage() {
   const [filteredProperties, setFilteredProperties] = useState<
     Property[] | null
   >(null);
-  const [isDark, setIsDark] = useState<boolean | null>(null);
 
   const [hasPool, setHasPool] = useState(false);
   const [hasBalcony, setHasBalcony] = useState(false);
@@ -120,8 +119,6 @@ export default function ResponsiveLandingPage() {
   }
 
   useEffect(() => {
-    const isDark = window?.matchMedia("(prefers-color-scheme: dark)").matches;
-    setIsDark(isDark);
     propertyFetcher();
   }, []);
 

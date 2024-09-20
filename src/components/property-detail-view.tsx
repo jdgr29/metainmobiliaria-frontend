@@ -26,6 +26,7 @@ import { defineQuery } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { Property } from "@/types";
+import { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 
 const options = { next: { revalidate: 60 } };
 const PROPERTY_QUERY = defineQuery(`
@@ -111,7 +112,7 @@ export default function PropertyDetailView() {
   }, [id]);
 
   const builder = imageUrlBuilder(sanityClient);
-  function urlTransformer(source: SanityImageSource) {
+  function urlTransformer(source: SanityImageSource): ImageUrlBuilder {
     return builder.image(source);
   }
 
