@@ -70,7 +70,7 @@ function Navbar() {
                 Meta Inmobiliaria
               </span>
               <br />
-              <span className="text-slate-500 font-medium text-md">
+              <span className="text-slate-700 font-medium text-md">
                 La energía para lograrlo
               </span>
             </div>
