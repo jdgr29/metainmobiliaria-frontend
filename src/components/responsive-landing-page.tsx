@@ -17,7 +17,7 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 const options = { next: { revalidate: 60 } };
 const PROPERTY_QUERY = defineQuery(
-  `*[_type == "property"] | order(price asc) {
+  `*[_type == "property"] | order(asc) {
     _id,
     title,
     isFeatured,
@@ -55,9 +55,9 @@ export default function ResponsiveLandingPage() {
   const [bedrooms, setBedrooms] = useState("");
   const [bathrooms, setBathrooms] = useState("");
   const [properties, setProperties] = useState<Property[] | null>(null);
-  const [filteredProperties, setFilteredProperties] = useState<
-    Property[] | null
-  >(null);
+  const [filteredProperties, setFilteredProperties] = useState<Property[] | null>(null);
+  const [recentProperties, setRecentProperties] = useState<Property[] | null>(null);
+  const [featuredProperties, setFeaturedProperties] = useState<Property[] | null>(null);
 
   const [hasPool, setHasPool] = useState(false);
   const [hasBalcony, setHasBalcony] = useState(false);
@@ -68,15 +68,14 @@ export default function ResponsiveLandingPage() {
 
   const propertyFetcher = async () => {
     const prop = await sanityClient.fetch(PROPERTY_QUERY, {}, options);
-    console.log("props", prop);
 
     if (prop) {
       setProperties(prop);
-      filterProperties(prop);
+      setFilteredProperties(prop);
+      setRecentProperties(prop.slice(0, 3));
+      setFeaturedProperties(prop.filter((p: Property) => p.isFeatured));
     }
   };
-
-  console.log("props ->", properties);
 
   const filterProperties = (propertiesToFilter: Property[]) => {
     let filtered = propertiesToFilter;
@@ -88,7 +87,8 @@ export default function ResponsiveLandingPage() {
     }
 
     if (propertyType) {
-      filtered = filtered.filter((prop) => prop.propertyType === propertyType);
+      filtered = filtered.filter((prop) => prop.propertyType.toLowerCase() === propertyType.toLowerCase());
+      console.log("uuuu", propertyType)
     }
 
     if (bedrooms) {
@@ -109,12 +109,11 @@ export default function ResponsiveLandingPage() {
 
     if (hasPool) filtered = filtered.filter((prop) => prop.hasPool);
     if (hasBalcony) filtered = filtered.filter((prop) => prop.hasBalcony);
-    if (hasServiceRoom)
-      filtered = filtered.filter((prop) => prop.hasServiceRoom);
-    if (hasLaundryroom)
-      filtered = filtered.filter((prop) => prop.hasLaundryroom);
+    if (hasServiceRoom) filtered = filtered.filter((prop) => prop.hasServiceRoom);
+    if (hasLaundryroom) filtered = filtered.filter((prop) => prop.hasLaundryroom);
     if (hasGarden) filtered = filtered.filter((prop) => prop.hasGarden);
     if (hasParking) filtered = filtered.filter((prop) => prop.hasParking);
+
 
     setFilteredProperties(filtered);
   };
@@ -129,10 +128,8 @@ export default function ResponsiveLandingPage() {
   }, []);
 
   useEffect(() => {
-    console.log("properties", properties);
     if (properties) {
       filterProperties(properties);
-      console.log("filtered properties", properties);
     }
   }, [
     priceRange,
@@ -160,6 +157,7 @@ export default function ResponsiveLandingPage() {
     setHasLaundryroom(false);
     setHasGarden(false);
     setHasParking(false);
+    setFilteredProperties(properties); // Reset filtered properties to all properties
   };
 
   return (
@@ -245,6 +243,7 @@ export default function ResponsiveLandingPage() {
                           className="block w-full mt-1 p-2 border border-gray-300 rounded transition-all duration-300 focus:ring-2 focus:ring-primary"
                         >
                           <option value="">Cualquiera</option>
+                          <option value="land">Terreno</option>
                           <option value="house">Casa</option>
                           <option value="apartment">Apartamento</option>
                           <option value="condo">Condominio</option>
@@ -415,13 +414,7 @@ export default function ResponsiveLandingPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.3 }}
             >
-              <PropertyMapComponent
-                properties={
-                  filteredProperties?.length === 0
-                    ? properties
-                    : filteredProperties
-                }
-              />
+              <PropertyMapComponent properties={filteredProperties} />
             </motion.div>
           </div>
         </motion.section>
@@ -433,11 +426,7 @@ export default function ResponsiveLandingPage() {
         >
           <div className="container mx-auto px-4 md:px-6">
             <FeaturePosts
-              properties={
-                filteredProperties?.length === 0
-                  ? properties
-                  : filteredProperties
-              }
+              properties={featuredProperties}
               urlTransformer={urlTransformer}
             />
           </div>
@@ -451,11 +440,7 @@ export default function ResponsiveLandingPage() {
           <div className="container mx-auto px-4 md:px-6">
             <RecentPosts
               urlTransformer={urlTransformer}
-              properties={
-                filteredProperties?.length === 0
-                  ? properties
-                  : filteredProperties
-              }
+              properties={recentProperties}
             />
           </div>
         </motion.section>

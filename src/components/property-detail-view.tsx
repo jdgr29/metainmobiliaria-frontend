@@ -176,7 +176,7 @@ export default function PropertyDetailView() {
           />
         </AnimatePresence>
         {property.propertyImages && (
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-between">
+          <div className="absolute z-20 inset-0 bg-black bg-opacity-10 flex items-center justify-between">
             <button
               onClick={prevImage}
               className="text-white p-4 hover:bg-black hover:bg-opacity-30 transition duration-300"
