@@ -28,7 +28,6 @@ import {
   PDFDownloadLink,
   Image,
 } from "@react-pdf/renderer";
-import Head from "next/head";
 
 type Currency = "DOP" | "USD" | "EUR";
 
