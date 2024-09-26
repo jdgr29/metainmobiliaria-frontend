@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DollarSign, Euro, Coins, Info, Download } from "lucide-react";
+import { DollarSign, Euro, Coins, Info } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -50,6 +51,7 @@ const formatNumber = (value: number, currency: Currency) => {
   );
 };
 
+// Styles for PDF
 const styles = StyleSheet.create({
   page: { padding: 30 },
   header: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
@@ -408,16 +410,7 @@ export default function LoanPage() {
                       }
                       fileName="amortizacion.pdf"
                     >
-                      {({ loading }: { loading: boolean }) =>
-                        loading ? (
-                          "Cargando documento..."
-                        ) : (
-                          <Button variant="outline" size="sm">
-                            <Download className="w-4 h-4 mr-2" />
-                            Descargar PDF
-                          </Button>
-                        )
-                      }
+                      <button>Descargar</button>
                     </PDFDownloadLink>
                   </div>
                   <div
