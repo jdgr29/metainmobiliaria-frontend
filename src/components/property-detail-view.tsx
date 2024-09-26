@@ -158,39 +158,40 @@ export default function PropertyDetailView() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="relative h-screen md:h-[80vh] overflow-hidden">
         <AnimatePresence initial={false}>
-          {
-            <motion.img
-              key={currentImageIndex}
-              src={
-                property?.propertyImages
-                  ? urlTransformer(
-                      property?.propertyImages[currentImageIndex]
-                    ).url()
-                  : urlTransformer(property?.mainImage).url()
-              }
-              alt={`Property image ${currentImageIndex + 1}`}
-              className="w-full h-full object-cover"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-            />
-          }
+          <motion.img
+            key={currentImageIndex}
+            src={
+              property?.propertyImages
+                ? urlTransformer(
+                    property?.propertyImages[currentImageIndex]
+                  ).url()
+                : urlTransformer(property?.mainImage).url()
+            }
+            alt={`Property image ${currentImageIndex + 1}`}
+            className="w-full h-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          />
         </AnimatePresence>
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-between">
-          <button
-            onClick={prevImage}
-            className="text-white p-4 hover:bg-black hover:bg-opacity-30 transition duration-300"
-          >
-            <ChevronLeft size={40} />
-          </button>
-          <button
-            onClick={nextImage}
-            className="text-white p-4 hover:bg-black hover:bg-opacity-30 transition duration-300"
-          >
-            <ChevronRight size={40} />
-          </button>
-        </div>
+        {property.propertyImages && (
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-between">
+            <button
+              onClick={prevImage}
+              className="text-white p-4 hover:bg-black hover:bg-opacity-30 transition duration-300"
+            >
+              <ChevronLeft size={40} />
+            </button>
+            <p>{property.propertyImages?.length}</p>
+            <button
+              onClick={nextImage}
+              className="text-white p-4 hover:bg-black hover:bg-opacity-30 transition duration-300"
+            >
+              <ChevronRight size={40} />
+            </button>
+          </div>
+        )}
         <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-2">
             {property.title}
@@ -394,30 +395,32 @@ export default function PropertyDetailView() {
           </div>
         </motion.div>
 
-        <motion.div
-          className="mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-        >
-          <h3 className="text-2xl font-semibold mb-4">Property Images</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {property.propertyImages?.map((image, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <img
-                  src={urlTransformer(image).url()}
-                  alt={`Property image ${index + 1}`}
-                  className="w-full h-48 object-cover rounded-lg shadow-md cursor-pointer"
-                  onClick={() => expandImage(index)}
-                />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        {property.propertyImages && (
+          <motion.div
+            className="mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          >
+            <h3 className="text-2xl font-semibold mb-4">Property Images</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {property.propertyImages?.map((image, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <img
+                    src={urlTransformer(image).url()}
+                    alt={`Property image ${index + 1}`}
+                    className="w-full h-48 object-cover rounded-lg shadow-md cursor-pointer"
+                    onClick={() => expandImage(index)}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
       </div>
 
       {isImageExpanded && (
